@@ -250,24 +250,28 @@ public class LaserAgent : Agent
         }
         else if (ChooseObservationType == 2)
         {
-            AddVectorObs(aPlayerX);
-            AddVectorObs(aPlayerY);
-            AddVectorObs(aPlayerXold);
+            AddVectorObs(0.5f*aPlayerX);
+            AddVectorObs(0.5f*aPlayerY);
+            AddVectorObs(0.5f*aPlayerXold);
             for (int count = 0; count < NumPlayerLasers; count++)
             {
-                AddVectorObs(CurrentPlayerLaserPositions[count]);
+                AddVectorObs(0.5f*CurrentPlayerLaserPositions[count].x);
+                AddVectorObs(0.5f * CurrentPlayerLaserPositions[count].y);
                 //AddVectorObs(isPlayerLaserActive[count]);
             }
             for (int count = 0; count < NumEnemyLasers; count++)
             {
-                AddVectorObs(CurrentEnemyLaserPositions[count]);
+                AddVectorObs(0.5f*CurrentEnemyLaserPositions[count].x);
+                AddVectorObs(0.5f * CurrentEnemyLaserPositions[count].y);
                 //AddVectorObs(PriorEnemyLaserPositions[count]);
-               // AddVectorObs(isEnemyLaserActive[count]);
+                // AddVectorObs(isEnemyLaserActive[count]);
             }
             for (int count = 0; count < NumEnemies; count++)
             {
-                AddVectorObs(CurrentEnemyPositions[count]);
-                AddVectorObs(PriorEnemyPositions[count]);
+                AddVectorObs(0.5f*CurrentEnemyPositions[count].x);
+                AddVectorObs(0.5f * CurrentEnemyPositions[count].y);
+                AddVectorObs(0.5f*PriorEnemyPositions[count].x);
+                AddVectorObs(0.5f * PriorEnemyPositions[count].y);
                 //AddVectorObs(isEnemyActive[count]);
             }
         }
@@ -458,7 +462,7 @@ public class LaserAgent : Agent
             
             }
        
-            AddReward(xReward);
+            AddReward(4.0f*xReward);
         // Debug.Log("reward:" + GetCumulativeReward());
         FrameRate=(1.0f / Time.deltaTime);
         if (Mathf.Abs(xReward)>0.01)
