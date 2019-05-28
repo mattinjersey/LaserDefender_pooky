@@ -17,17 +17,17 @@ public class LaserAgent : Agent
     int bCount;
     float divideFactor = 10.0f;
     int NumStep = 0;
-    int MaxNumSteps = 9*30*50; // make this about 30 seconds.
-    [SerializeField]  int MaxNumPlayerLasers =4;
+    int MaxNumSteps = 9 * 30 * 50; // make this about 30 seconds.
+    [SerializeField] int MaxNumPlayerLasers = 4;
     [SerializeField] float FrameRate;
     int smallGoalPosition;
     int largeGoalPosition;
     float xReward = 0;
     System.IO.StreamWriter logFile;
-        [SerializeField] float LastReward = 0f;
+    [SerializeField] float LastReward = 0f;
     int ChooseObservationType = 2;  // send vector
     bool HasFired = false;
-    [SerializeField] int NumEnemies ; // this to be used for observations.
+    [SerializeField] int NumEnemies; // this to be used for observations.
     [SerializeField] int movement;
     [SerializeField] int mFire;
     [SerializeField] float aPlayerX;
@@ -57,8 +57,8 @@ public class LaserAgent : Agent
     public override void InitializeAgent()
     {
 
-       
-       // logFile = new System.IO.StreamWriter(@"C:\Users\matt\Haskell\xUnity\LD_ML\mLogFile.txt");
+
+        // logFile = new System.IO.StreamWriter(@"C:\Users\matt\Haskell\xUnity\LD_ML\mLogFile.txt");
         // Time.timeScale = 10;
         Debug.Log(1.0f / Time.deltaTime);
         academy = FindObjectOfType(typeof(Academy)) as Academy;
@@ -91,7 +91,7 @@ public class LaserAgent : Agent
         for (int count = 0; count < NumEnemyLasers; count++)
             CurrentEnemyLaserPositions[count] = new Vector2(-1.0f, -1.0f);
         for (int count = 0; count < NumEnemyLasers; count++)
-            PriorEnemyLaserPositions[count] = new Vector2(-1.0f,-1.0f);
+            PriorEnemyLaserPositions[count] = new Vector2(-1.0f, -1.0f);
         for (int count = 0; count < NumPlayerLasers; count++)
             CurrentPlayerLaserPositions[count] = new Vector2(-1.0f, -1.0f);
 
@@ -105,7 +105,7 @@ public class LaserAgent : Agent
         int aCount = 0;
         //float aPlayerY;
         //float aConvertX, aConvertY;
-      //  int[,] occArray = new int[21, 21];
+        //  int[,] occArray = new int[21, 21];
         if (player.activeSelf)
         {
             /*float aMax_x = -100f;
@@ -116,7 +116,7 @@ public class LaserAgent : Agent
             //float aConvert = 0f;
             mStart = true;
             // add player observations
-           
+
             if (ChooseObservationType == 1)
             {
                 aPlayerX = 10f + Mathf.Round(10.0f * player.transform.position.x / divideFactor);
@@ -124,20 +124,20 @@ public class LaserAgent : Agent
             }
             else
             {
-                aPlayerX =  ( player.transform.position.x / divideFactor);
-                aPlayerY =  ( player.transform.position.y / divideFactor);
+                aPlayerX = (player.transform.position.x / divideFactor);
+                aPlayerY = (player.transform.position.y / divideFactor);
             }
-           // occArray[(int)aPlayerX, (int)aPlayerY] = 1;
-          //  xObs(aPlayerX, "thisPlayerX", 0);
+            // occArray[(int)aPlayerX, (int)aPlayerY] = 1;
+            //  xObs(aPlayerX, "thisPlayerX", 0);
             mStart = false;
             //  Debug.Log(aCount + "PlayerX   " + aPlayerX);
             aCount += 1;
             //xObs(aPlayerXold,"thisPlayerPriorX",0);
-           // if (occArray[(int)aPlayerXold, (int)aPlayerY] == 0)
-             //   occArray[(int)aPlayerXold, (int)aPlayerY] = 2;
+            // if (occArray[(int)aPlayerXold, (int)aPlayerY] == 0)
+            //   occArray[(int)aPlayerXold, (int)aPlayerY] = 2;
             //  Debug.Log(aCount + "PLayerXold   " + aPlayerXold);
             aCount += 1;
-      
+
             //Debug.Log(priorPlayerPosition/8.5f);
             // add enemy observations
             for (int count = 0; count < NumEnemies; count++)
@@ -159,7 +159,7 @@ public class LaserAgent : Agent
                     aConvertY = thisEnemyCurrentPosition.y;
 
                     // Debug.Log("aConvertX:" + aConvertX + "   aConvertY:" + aConvertY);
-                  //  occArray[(int)aConvertX, (int)aConvertY] = 3;
+                    //  occArray[(int)aConvertX, (int)aConvertY] = 3;
                     //xObs(aConvert, "thisEnemy.CurrentPosition.y",count);
                     //    Debug.Log(aCount + "enemyIndex: " + count  + "enemyY   " + 0.5f * thisEnemyCurrentPosition.y);
                     aCount += 1;
@@ -172,7 +172,7 @@ public class LaserAgent : Agent
                     aConvertY = thisEnemyPriorPosition.y;
 
                     //xObs(aConvert, "thisEnemyPriorPosition.y",count);
-                  //  if (occArray[(int)aConvertX, (int)aConvertY] == 0)
+                    //  if (occArray[(int)aConvertX, (int)aConvertY] == 0)
                     //    occArray[(int)aConvertX, (int)aConvertY] = 4;
                     //PriorEnemyPositions[count] = CurrentEnemyPositions[count];
                 }
@@ -182,7 +182,7 @@ public class LaserAgent : Agent
             }
             // add player lasers and player laser projectile speed.
 
-           // xObs(PlayerLaserProjectileSpeed / 20f, "PlayerLaserProjectileSpeed", 0);
+            // xObs(PlayerLaserProjectileSpeed / 20f, "PlayerLaserProjectileSpeed", 0);
             for (int count = 0; count < NumPlayerLasers; count++)
             {
                 bool thisProjectileActive = isPlayerLaserActive[count];
@@ -198,7 +198,7 @@ public class LaserAgent : Agent
 
                     //  xObs(aConvert, "thisProjectileCurrentPosition.y",count);
                     //if (occArray[(int)aConvertX, (int)aConvertY] == 0)
-                     //   occArray[(int)aConvertX, (int)aConvertY] = 5;
+                    //   occArray[(int)aConvertX, (int)aConvertY] = 5;
                 }
             }
             // add enemy observations
@@ -220,12 +220,12 @@ public class LaserAgent : Agent
                     aConvertY = thisEnemyLasrCurrentPosition.y;
 
                     //xObs(aConvert, "thisEnemyLasrCurrentPosition.y",count);
-                   // occArray[(int)aConvertX, (int)aConvertY] = 6;
+                    // occArray[(int)aConvertX, (int)aConvertY] = 6;
 
                     aConvertY = thisEnemyLasrPriorPosition.y;
 
                     //if (occArray[(int)aConvertX, (int)aConvertY] == 0)
-                      //  occArray[(int)aConvertX, (int)aConvertY] = 7;
+                    //  occArray[(int)aConvertX, (int)aConvertY] = 7;
                     //xObs(aConvert, "thisEnemyLasrPriorPosition.y",count);
 
                     // AddVectorObs(xToFloat(thisEnemyLaserActive));
@@ -244,36 +244,37 @@ public class LaserAgent : Agent
             {
                 for (int countY = 0; countY < 21; countY++)
                 {
-                   // AddVectorObs(occArray[countX, countY], 8);
+                    // AddVectorObs(occArray[countX, countY], 8);
                 }
             }
         }
         else if (ChooseObservationType == 2)
         {
-            AddVectorObs(0.5f*aPlayerX);
-            AddVectorObs(0.5f*aPlayerY);
-            AddVectorObs(0.5f*aPlayerXold);
+            AddVectorObs(0.5f * aPlayerX);
+            AddVectorObs(0.5f * aPlayerY);
+            AddVectorObs(0.5f * aPlayerXold);
             for (int count = 0; count < NumPlayerLasers; count++)
             {
-                AddVectorObs(0.5f*CurrentPlayerLaserPositions[count].x);
+                AddVectorObs(0.5f * CurrentPlayerLaserPositions[count].x);
                 AddVectorObs(0.5f * CurrentPlayerLaserPositions[count].y);
                 //AddVectorObs(isPlayerLaserActive[count]);
             }
             for (int count = 0; count < NumEnemyLasers; count++)
             {
-                AddVectorObs(0.5f*CurrentEnemyLaserPositions[count].x);
+                AddVectorObs(0.5f * CurrentEnemyLaserPositions[count].x);
                 AddVectorObs(0.5f * CurrentEnemyLaserPositions[count].y);
                 //AddVectorObs(PriorEnemyLaserPositions[count]);
                 // AddVectorObs(isEnemyLaserActive[count]);
             }
             for (int count = 0; count < NumEnemies; count++)
             {
-                AddVectorObs(0.5f*CurrentEnemyPositions[count].x);
+                AddVectorObs(0.5f * CurrentEnemyPositions[count].x);
                 AddVectorObs(0.5f * CurrentEnemyPositions[count].y);
-                AddVectorObs(0.5f*PriorEnemyPositions[count].x);
+                AddVectorObs(0.5f * PriorEnemyPositions[count].x);
                 AddVectorObs(0.5f * PriorEnemyPositions[count].y);
                 //AddVectorObs(isEnemyActive[count]);
             }
+
         }
         /* update priors */
         aPlayerXold = aPlayerX;
@@ -286,19 +287,19 @@ public class LaserAgent : Agent
             PriorEnemyPositions[count] = CurrentEnemyPositions[count];
         }
     }
-    public void xObs(float inVal,string inString, int count)
+    public void xObs(float inVal, string inString, int count)
     {
         string aMessage;
         if (mStart)
         { bCount = 0; }
         bCount++;
-       aMessage="obs number:"+bCount+". "+"index number:"+count+"..."+inString + ": " + inVal;
+        aMessage = "obs number:" + bCount + ". " + "index number:" + count + "..." + inString + ": " + inVal;
         //logFile.WriteLine(aMessage);
-       // AddVectorObs(inVal);
+        // AddVectorObs(inVal);
     }
     public float xToFloat(bool inB)
     {
-        float outVal=0.0f;
+        float outVal = 0.0f;
         if (inB)
         { outVal = 1.0f; }
 
@@ -358,7 +359,7 @@ public class LaserAgent : Agent
             isPlayerLaserActive[count] = xActive;
             if (!xActive)
             {
-                CurrentPlayerLaserPositions[count] = new Vector2(-1.0f,- 1.0f);
+                CurrentPlayerLaserPositions[count] = new Vector2(-1.0f, -1.0f);
             }
         }
         else if (xObjectIndex == 3)
@@ -380,15 +381,15 @@ public class LaserAgent : Agent
         bool success = true; ;
         thiscurrentPosition /= divideFactor;
         if (ChooseObservationType == 1)
-        { 
-        starPosition.x = (float)(10f + (int)Mathf.Round(10.0f * Mathf.Clamp(thiscurrentPosition.x, -1.0f, 1.0f)));
-        starPosition.y = (float)(10f + (int)Mathf.Round(10.0f * Mathf.Clamp(thiscurrentPosition.y, -1.0f, 1.0f)));
-    }
+        {
+            starPosition.x = (float)(10f + (int)Mathf.Round(10.0f * Mathf.Clamp(thiscurrentPosition.x, -1.0f, 1.0f)));
+            starPosition.y = (float)(10f + (int)Mathf.Round(10.0f * Mathf.Clamp(thiscurrentPosition.y, -1.0f, 1.0f)));
+        }
         else
         {
             starPosition = thiscurrentPosition;
         }
-       
+
         if (xObjectIndex == 1)
         {
 
@@ -414,9 +415,9 @@ public class LaserAgent : Agent
     IEnumerator sqPrint()
     {
         while (true)
-        {        
-                PlayerRoutine.Fire(1);
-                //Debug.Log("fire!");   
+        {
+            PlayerRoutine.Fire(1);
+            //Debug.Log("fire!");   
             yield return new WaitForSeconds(projectileFiringPeriod);
             LaserDelay = false;
         }
@@ -424,90 +425,92 @@ public class LaserAgent : Agent
     }
     public override void AgentAction(float[] vectorAction, string textAction)
     {
-         movement = Mathf.FloorToInt(vectorAction[0]);
-         mFire = Mathf.FloorToInt( vectorAction[1] );
+        movement = Mathf.FloorToInt(vectorAction[0]);
+        mFire = Mathf.FloorToInt(vectorAction[1]);
         int aFire = 0;
         int direction = 0;
-        if (movement==1)
+        if (movement == 1)
         {
             direction = -1;
         }
-        else if (movement ==2)
-        { 
+        else if (movement == 2)
+        {
             direction = 1;
 
-    }
-      if (mFire==1)
-        {
-        aFire=1;
         }
-            
-            PlayerRoutine.Move(direction, 0);
+        if (mFire == 1)
+        {
+            aFire = 1;
+        }
+
+        PlayerRoutine.Move(direction, 0);
         // only start firing if LaserDelay is false.
-        if (aFire == 1 & !HasFired& LaserDelay==false)
-            {
-                StartCoroutine("sqPrint");
-               // Debug.Log("Starting Firing");
-                HasFired = true;
-               LaserDelay = true;
-               
-            }
-            else if (aFire == 0 & HasFired & LaserDelay==false)
-            {
-                //Debug.Log("ending firing");
+        if (aFire == 1 & !HasFired & LaserDelay == false)
+        {
+            StartCoroutine("sqPrint");
+            // Debug.Log("Starting Firing");
+            HasFired = true;
+            LaserDelay = true;
+
+        }
+        else if (aFire == 0 & HasFired & LaserDelay == false)
+        {
+            //Debug.Log("ending firing");
             // only end firing if LaserDelay is false.
-            
-                StopCoroutine("sqPrint");
-                HasFired = false;
-            
-            }
-       
-            AddReward(4.0f*xReward);
+
+            StopCoroutine("sqPrint");
+            HasFired = false;
+
+        }
+
+
         // Debug.Log("reward:" + GetCumulativeReward());
-        FrameRate=(1.0f / Time.deltaTime);
-        if (Mathf.Abs(xReward)>0.01)
+        FrameRate = (1.0f / Time.deltaTime);
+        AddReward(xReward);
+
+        if (Mathf.Abs(xReward) > 0.01)
         {
             LastReward = xReward;
             LaserDelay = false;
         }
-            if (xReward < -0.01) /*died*/
-            {
-                xReward = 0f;
-               
-                endGameText = GameObject.Find("endGameText").GetComponent<Text>();
-                endGameText.text = "GAME OVER...RESTARTING..." + (1.0f / Time.deltaTime); ;
-                //player.SetActive(false);
-                Invoke("youDead",0.5f);
+        if (xReward < -0.01) /*died*/
+        {
+            xReward = 0f;
+
+            endGameText = GameObject.Find("endGameText").GetComponent<Text>();
+            endGameText.text = "GAME OVER...RESTARTING..." + (1.0f / Time.deltaTime); ;
+            //player.SetActive(false);
+            Invoke("youDead", 0.5f);
             aKeepScore.Resetcore();
             Debug.Log("reward:" + GetCumulativeReward());
             xInitializeArrays();
             Done();
-          
-            }
 
-         
-            xReward = 0f; //reset reward every cycle.
+        }
+
+
+        xReward = 0f; //reset reward every cycle.
         NumStep += 1;
-        if (NumStep>MaxNumSteps)
+        if (NumStep > MaxNumSteps)
         {
             NumStep = 0;
-            Debug.Log("reward:"+GetCumulativeReward());
+            Debug.Log("reward:" + GetCumulativeReward());
             xInitializeArrays();
             Done();
-      
+
         }
     }
     public void youDead()
     {
-        float a1, a2,a3;
+        float a1, a2, a3;
         Vector3 temp;
-        a1 = Random.Range(-divideFactor,divideFactor);
+        a1 = Random.Range(-divideFactor, divideFactor);
         a2 = player.transform.position.y;
         a3 = player.transform.position.z;
         temp = new Vector3(a1, a2, a3);
         player.transform.position = temp;
-        
-       // Debug.Log("player got hit!");
+
+        // Debug.Log("player got hit!");
         endGameText.text = "";
         player.SetActive(true);
         PlayerRoutine.RestoreHealth();
@@ -533,29 +536,29 @@ public class LaserAgent : Agent
 
     }
 
-   /* public void FixedUpdate()
-    {
-        WaitTimeInference();
-    }
-*/    
-  //  private void WaitTimeInference()
+    /* public void FixedUpdate()
+     {
+         WaitTimeInference();
+     }
+ */
+    //  private void WaitTimeInference()
     //{
-      /*  if (!academy.GetIsInference())
-        {
-            RequestDecision();
-        }
-        else
-        {
-            if (timeSinceDecision >= timeBetweenDecisionsAtInference)
-            {
-                timeSinceDecision = 0f;
-                RequestDecision();
-            }
-            else
-            {
-                timeSinceDecision += Time.fixedDeltaTime;
-            }
-        }*/
+    /*  if (!academy.GetIsInference())
+      {
+          RequestDecision();
+      }
+      else
+      {
+          if (timeSinceDecision >= timeBetweenDecisionsAtInference)
+          {
+              timeSinceDecision = 0f;
+              RequestDecision();
+          }
+          else
+          {
+              timeSinceDecision += Time.fixedDeltaTime;
+          }
+      }*/
     //}
 
 }

@@ -367,7 +367,7 @@ Prefab:
     - target: {fileID: 114698062278543746, guid: 261a3a40e05adeb4dab8858341283f2d,
         type: 2}
       propertyPath: agentParameters.numberOfActionsBetweenDecisions
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114698062278543746, guid: 261a3a40e05adeb4dab8858341283f2d,
         type: 2}
