@@ -32,7 +32,14 @@ I also tried the reinforcement library TF Agents:
 You will need Unity on your computer. Go to the Unity website to download and install it, for free.
 Now you should be able to start and play the Unity game in the repo. If you have some problems, you may need to go to the GitHub/MLagents to install MLagents.
 MLagents is a great system that enables Unity to communicate with python.
-Also install tfAgents: GitHub/TFagents
+Also install tfAgents: GitHub/TFagents (optional)
+Incidentally the commands that I used to get this started are:
+activate yAgents   (this is the Anaconda environment)
+mlagents-learn mlAgents/trainer_config.yaml --env=xLaser/laserDefender --run-id=qImages --train
+
+and for the tensorboard:
+tensorboard --logdir=summaries --port=8000
+
 
 ## results
 Well my results were not great. I did not succeed in training these agents to win the video game. But if you try it, let me know, I would like to hear it!
